@@ -14,9 +14,27 @@
  *
  */
 #include <stdio.h>
+#include <time.h>
 
-int main() {
-	// printf() displays the string inside quotation
-	printf("write_in_a_file_c");
+int main()
+{
+	// Create file variable
+	FILE *logPtr;
+
+	if ((logPtr = fopen("./../log/trace.log", "a")) == NULL)
+	{
+		puts("There was an error, I can't open the file");
+	}
+	else // File opened
+	{
+		time_t rawtime;
+		time(&rawtime);
+
+		fprintf(logPtr, "Current local time and date: %s", asctime(localtime(&rawtime))); // Write on the file the date
+		printf("Current local time and date: %s", asctime(localtime(&rawtime)));
+	}
+
+	// Close file
+	fclose(logPtr);
 	return 0;
 }
